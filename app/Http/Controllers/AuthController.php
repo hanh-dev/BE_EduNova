@@ -30,7 +30,11 @@ class AuthController extends Controller
 
     protected function respondWithToken($token)
     {
+        $user = auth('api')->user();
+
         return response()->json([
+            'username' => $user->name,
+            'role' => $user->role,
             'access_token' => $token,
             'token_type' => 'bearer',
             'expires_in' => config('jwt.ttl') * 60
