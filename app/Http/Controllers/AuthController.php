@@ -33,6 +33,7 @@ class AuthController extends Controller
         $user = auth('api')->user();
 
         return response()->json([
+            'user_id' => $user->id,
             'username' => $user->name,
             'role' => $user->role,
             'access_token' => $token,
