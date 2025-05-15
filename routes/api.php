@@ -3,6 +3,7 @@
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AuthController;
+use App\Http\Controllers\InClassController;
 use App\Http\Controllers\ProductController;
 use Illuminate\Support\Facades\Auth;
 use Tymon\JWTAuth\Facades\JWTAuth;
@@ -23,3 +24,6 @@ Route::middleware('auth.jwt')->get('/profile', [ProductController::class, 'get']
 //         "user2" => $user2
 //     ];
 // });
+Route::get('/inclass',[InClassController::class,'index']);
+Route::put('/inclass/{id}',[InClassController::class,'update']);
+Route::get('/inclass/{id}',[InClassController::class,'show']);
