@@ -3,6 +3,7 @@
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AuthController;
+use App\Http\Controllers\GoalController;
 use App\Http\Controllers\ProductController;
 use Illuminate\Support\Facades\Auth;
 use Tymon\JWTAuth\Facades\JWTAuth;
@@ -23,3 +24,9 @@ Route::middleware('auth.jwt')->get('/profile', [ProductController::class, 'get']
 //         "user2" => $user2
 //     ];
 // });
+Route::get('/goal', [GoalController::class, 'index']);
+Route::post('/goal', [GoalController::class, 'store']);
+Route::get('/goal/{id}', [GoalController::class, 'show']);
+Route::put('/goal/{id}', [GoalController::class, 'update']);
+Route::delete('/goal/{id}', [GoalController::class, 'destroy']);
+Route::put('/goal/{id}/completeStatus', [GoalController::class, 'updateCompleteStatus']);
