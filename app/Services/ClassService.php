@@ -16,4 +16,10 @@ class ClassService
         $response = $this->repository->getAllWithDetails();
         return $response;
     }
+
+    public function createClass(array $data)
+    {
+        $reponse = $this->repository->create($data);
+        return $reponse;
+    }
 }

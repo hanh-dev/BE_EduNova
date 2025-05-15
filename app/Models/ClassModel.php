@@ -15,8 +15,7 @@ class ClassModel extends Model
 
     public function students()
     {
-        return $this->belongsToMany(User::class, 'class_user', 'class_id', 'student_id')
-                    ->withTimestamps();
+        return $this->belongsToMany(User::class, 'class_user', 'class_id', 'student_id');
     }
 
     public function teacher()

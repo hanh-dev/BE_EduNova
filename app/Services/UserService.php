@@ -10,4 +10,14 @@ class UserService
     {
         $this->repository = $userRepository;
     }
+
+    public function create($data)
+    {
+        return $this->repository->createUser($data);
+    }
+
+    public function getUserIdByUserName($name)
+    {
+        return $this->repository->getUserId($name);
+    }
 }

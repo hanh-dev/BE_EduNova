@@ -32,4 +32,9 @@ class ClassRepository
 
         return $classes;
     }
+
+    public function create(array $data)
+    {
+        return ClassModel::create($data);
+    }
 }

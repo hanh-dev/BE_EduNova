@@ -14,16 +14,9 @@ Route::get('/user', function (Request $request) {
 Route::post('/v1/login', [AuthController::class, 'login']);
 Route::post('/v1/logout', [AuthController::class, 'logout']);
 
-Route::get('/v1/classes', [ClassController::class, 'index']);
 Route::get('/v1/teachers', [TeacherController::class, 'index']);
 
 Route::middleware('auth.jwt')->get('/profile', [ProductController::class, 'get']);
-
-// Route::middleware('auth:api')->get('/profile', function () {
-//     $user = JWTAuth::parseToken()->authenticate();
-//     $user2 = Auth::user();
-//     return [
-//         "user1" => $user,
-//         "user2" => $user2
-//     ];
-// });
+// Class management
+Route::get('/v1/classes', [ClassController::class, 'index']);
+Route::post('/v1/classes', [ClassController::class, 'create']);
