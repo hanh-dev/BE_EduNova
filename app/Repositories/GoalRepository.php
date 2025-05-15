@@ -1,9 +1,8 @@
 <?php
-
 namespace App\Repositories;
 
 use App\Models\Goal;
-use Illuminate\Database\Eloquent\ModelNotFoundException;
+use Illuminate\Http\Request;
 
 class GoalRepository
 {
@@ -14,49 +13,83 @@ class GoalRepository
         $this->goalModel = $goalModel;
     }
 
-    // Tạo mục tiêu mới
+    // Tạo mới một mục tiêu
     public function create(array $data)
     {
-        try {
-            return $this->goalModel->create($data); // Tạo mục tiêu mới
-        } catch (\Exception $e) {
-            // Xử lý lỗi nếu tạo không thành công
-            throw new \Exception("Error creating goal: " . $e->getMessage());
-        }
+        return $this->goalModel->create($data);
     }
 
-    // Tìm mục tiêu theo ID
+    // Lấy mục tiêu theo ID
     public function find($id)
     {
-        $goal = $this->goalModel->find($id);
-
-        if (!$goal) {
-            throw new ModelNotFoundException("Goal not found with ID: $id");
-        }
-
-        return $goal;
+        return $this->goalModel->find($id);
     }
 
     // Cập nhật mục tiêu
     public function update($id, array $data)
     {
-        // Tìm mục tiêu theo ID
         $goal = $this->goalModel->find($id);
-        
-        // Nếu không tìm thấy mục tiêu, ném ngoại lệ
+
         if (!$goal) {
-            throw new ModelNotFoundException("Goal not found with ID: $id");
+            return null;
         }
 
-        // Cập nhật thông tin mục tiêu
         $goal->update($data);
-
-        return $goal;  // Trả về mục tiêu đã cập nhật
+        return $goal;
     }
 
     // Lấy tất cả các mục tiêu
     public function getAll()
     {
-        return $this->goalModel::all(); // Lấy tất cả các mục tiêu
+        return $this->goalModel::all();
     }
+
+    // Xóa một mục tiêu
+    public function deleteGoal($id)
+    {
+        $goal = $this->goalModel->find($id);
+
+        if (!$goal) {
+            return null;
+        }
+
+        $goal->delete();
+        return true;
+    }
+
+    // Cập nhật trạng thái hoàn thành của mục tiêu
+    public function updateGoalStatus($id, $status)
+    {
+        $goal = $this->goalModel->find($id);
+
+        if (!$goal) {
+            return null;
+        }
+
+        // Cập nhật trạng thái của mục tiêu
+        $goal->completeStatus = $status;
+        $goal->save();
+
+        return $goal;
+    }
+
+      public function getGoalsByStatus($status)
+    {
+        return $this->goalModel->where('completeStatus', $status)->get();
+    }
+    public function updateCompleteStatus(Request $request, $id)
+{
+    $validated = $request->validate([
+        'completeStatus' => 'in:doing,done', // Kiểm tra trạng thái hợp lệ
+    ]);
+
+    $goal = $this->goalModel->updateGoalStatus($id, $validated['completeStatus']);
+
+    if (!$goal) {
+        return response()->json(['message' => 'Goal not found'], 404);
+    }
+
+    return response()->json($goal, 200); // Trả lại goal đã được cập nhật
+}
+
 }

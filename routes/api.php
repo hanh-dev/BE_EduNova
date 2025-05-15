@@ -28,8 +28,10 @@ Route::middleware('auth.jwt')->get('/profile', [ProductController::class, 'get']
 // routes/api.php
 
 // Dành cho phương thức GET
-// routes/api.php
+
 Route::get('/goal', [GoalController::class, 'index']);
 Route::post('/goal', [GoalController::class, 'store']);
-Route::put('/goal/{id}', [GoalController::class, 'update']);Route::get('/goal/{id}', [GoalController::class, 'show']);
 Route::get('/goal/{id}', [GoalController::class, 'show']);
+Route::put('/goal/{id}', [GoalController::class, 'update']);
+Route::delete('/goal/{id}', [GoalController::class, 'destroy']);
+Route::put('/goal/{id}/completeStatus', [GoalController::class, 'updateCompleteStatus']);

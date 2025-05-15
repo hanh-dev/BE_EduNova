@@ -1,5 +1,4 @@
-<?php
-
+<?php 
 namespace App\Services;
 
 use App\Repositories\GoalRepository;
@@ -7,43 +6,66 @@ use App\Repositories\GoalRepository;
 class GoalService {
 
     protected $goalRepository;
-    
-    // Constructor nhận vào GoalRepository
+
     public function __construct(GoalRepository $goalRepository)
     {
         $this->goalRepository = $goalRepository;
     }
 
-    // Tạo mục tiêu mới
+    // Tạo mới một mục tiêu
     public function createGoal(array $data)
     {
         return $this->goalRepository->create($data);
     }
 
-    // Lấy tất cả mục tiêu
+    // Lấy tất cả các mục tiêu
     public function getAllGoals()
     {
         return $this->goalRepository->getAll();
     }
 
-    // Cập nhật mục tiêu
+    // Lấy một mục tiêu theo ID
+    public function getGoalById($id)
+    {
+        return $this->goalRepository->find($id);
+    }
+
+    // Cập nhật thông tin mục tiêu
     public function updateGoal($id, array $data)
     {
-        // Tìm mục tiêu theo ID
         $goal = $this->goalRepository->find($id);
-        
-        // Nếu không tìm thấy mục tiêu, trả về null
+
         if (!$goal) {
             return null;
         }
 
-        // Cập nhật mục tiêu nếu tìm thấy
         return $this->goalRepository->update($id, $data);
     }
 
-    // Lấy mục tiêu theo ID
-    public function getGoalById($id)
+    // Cập nhật trạng thái hoàn thành của mục tiêu
+    public function updateGoalStatus($id, $status)
     {
-        return $this->goalRepository->find($id);
+        $goal = $this->goalRepository->find(id: $id);
+
+        if (!$goal) {
+            return null;
+        }
+
+        // Cập nhật trạng thái của mục tiêu
+        $goal->completeStatus = $status;
+        $goal->save();
+
+        return $goal;
+    }
+
+    // Xóa một mục tiêu
+    public function deleteGoal($id)
+    {
+        return $this->goalRepository->deleteGoal($id);
+    }
+
+     public function getGoalsByStatus($status)
+    {
+        return $this->goalRepository->getGoalsByStatus($status);
     }
 }

@@ -5,6 +5,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Carbon\Carbon;
+use App\Models\User;
 
 class Goal extends Model
 {
@@ -12,7 +13,6 @@ class Goal extends Model
 
     protected $table = 'goals';
 
-    // Các thuộc tính có thể gán giá trị đại diện cho cột trong bảng
     protected $fillable = [
         'user_id',
         'course',
@@ -20,48 +20,45 @@ class Goal extends Model
         'courseExpectations',
         'teacherExpectations',
         'selfExpectations',
-        'dueDate'
+        'dueDate',
+        'completeStatus', 
     ];
 
-    // Quan hệ giữa Mục tiêu và Người dùng: một người dùng có nhiều mục tiêu.
+    // Quan hệ với User
     public function user()
     {
-        return $this->belongsTo(User::class);  // Mỗi Goal thuộc về một User
+        return $this->belongsTo(User::class);
     }
 
-    // Phương thức lấy ngày hoàn thành (due date) với định dạng dễ đọc hơn.
+    // Định dạng ngày hết hạn (dueDate)
     public function getDueDateAttribute($value)
     {
-        return Carbon::parse($value)->format('d-m-Y'); // Định dạng lại ngày
+        return Carbon::parse($value)->format('d-m-Y');
     }
 
-    // Phương thức set lại ngày hoàn thành (due date) dưới dạng chuẩn.
     public function setDueDateAttribute($value)
     {
-        $this->attributes['dueDate'] = Carbon::parse($value)->toDateString(); // Lưu lại dưới dạng chuẩn
+        $this->attributes['dueDate'] = Carbon::parse($value)->toDateString();
     }
 
-    // Phương thức lưu mục tiêu với kiểm tra.
-    public function saveGoal(array $data)
+    // Trạng thái hoàn thành: nếu trạng thái là 'done', trả về màu xanh, nếu 'doing', trả về màu vàng
+    public function getCompleteStatusAttribute($value)
     {
-        // Kiểm tra nếu user_id trùng khớp và không có mục tiêu trùng
-        $existingGoal = $this->where('user_id', $data['user_id'])
-                             ->where('course', $data['course'])
-                             ->where('dueDate', $data['dueDate'])
-                             ->first();
-
-        if ($existingGoal) {
-            // Nếu mục tiêu đã tồn tại, trả về thông báo lỗi
-            return response()->json(['error' => 'Goal already exists for this user and course'], 400);
-        }
-
-        // Nếu không có mục tiêu trùng, tạo mục tiêu mới
-        try {
-            return $this->create($data);  // Tạo mục tiêu mới
-        } catch (\Exception $e) {
-            // Nếu có lỗi trong quá trình tạo, trả về thông báo lỗi
-            return response()->json(['error' => 'Error creating goal: ' . $e->getMessage()], 500);
-        }
+        return $value === 'done' ? 'done' : 'doing'; // Trả về trạng thái hoàn thành
     }
+
+    // Cập nhật trạng thái hoàn thành
+    public function setCompleteStatusAttribute($value)
+    {
+        $this->attributes['completeStatus'] = $value === 'done' ? 'done' : 'doing'; // Đảm bảo trạng thái hợp lệ
+    }
+    public function getCompletionPercentage()
+{
+    // Lấy dữ liệu từ service
+    $data = $this->goalService->getCompletionPercentage();
+
+    // Trả về kết quả
+    return response()->json($data, 200);
 }
 
+}
