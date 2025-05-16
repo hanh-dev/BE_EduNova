@@ -10,6 +10,7 @@ use App\Http\Controllers\TeacherController;
 use Illuminate\Support\Facades\Auth;
 use Tymon\JWTAuth\Facades\JWTAuth;
 use App\Http\Controllers\WeekGoalController;
+use App\Http\Controllers\TaskController;
 
 Route::get('/user', function (Request $request) {
     return $request->user();
@@ -45,3 +46,5 @@ Route::put('/week-goals/{id}', [WeekGoalController::class, 'updateWeekGoal']);
 Route::put('/week-goals/{id}/status', [WeekGoalController::class, 'updateWeekGoalStatus']);
 Route::delete('/week-goals/{id}', [WeekGoalController::class, 'deleteWeekGoal']);
 Route::get('/week-goals/status/{status}', [WeekGoalController::class, 'getWeekGoalsByStatus']);
+
+Route::get('/task', [TaskController::class, 'index']);
