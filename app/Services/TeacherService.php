@@ -16,4 +16,5 @@ class TeacherService
     {
         return $this->repository->getAllWithDetails();
     }
+
 }

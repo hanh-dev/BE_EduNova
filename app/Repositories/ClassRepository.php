@@ -32,4 +32,28 @@ class ClassRepository
 
         return $classes;
     }
+
+    public function create(array $data)
+    {
+        return ClassModel::create($data);
+    }
+
+    public function delete($id)
+    {
+        return ClassModel::where('id', '=', $id)->delete();
+    }
+
+    public function classExists($id)
+    {
+        return ClassModel::where('id', $id)->exists();
+    }
+
+    public function updateClass($id, $data)
+    {
+        $class = ClassModel::findOrFail($id);
+        $class->fill($data);
+        $class->save();
+        return $class;
+    }
+
 }
