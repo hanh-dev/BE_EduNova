@@ -17,7 +17,7 @@ class TaskRepository
     public function getAllTasks()
     {
         return $this->model
-            ->select('id', 'skill_module', 'lesson_summary', 'user_id')
+            ->select('id', 'skill_module', 'lesson_summary', 'status', 'user_id')
             ->with(['user' => function ($query) {
                 $query->select('id', 'name', 'image');
             }])
