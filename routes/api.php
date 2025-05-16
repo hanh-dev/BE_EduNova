@@ -21,3 +21,13 @@ Route::middleware('auth.jwt')->get('/profile', [ProductController::class, 'get']
 Route::get('/v1/classes', [ClassController::class, 'index']);
 Route::post('/v1/classes', [ClassController::class, 'create']);
 Route::delete('/v1/classes/{id}', [ClassController::class, 'delete']);
+
+Route::patch('/v1/test', function (Request $request) {
+    return response()->json([
+        'status' => true,
+        'message' => 'API Test Successfuleere',
+        'data' => $request->all()
+    ]);
+});
+
+Route::patch('/v1/classes/{id}', [ClassController::class, 'updateClass']);

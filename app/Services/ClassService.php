@@ -28,4 +28,16 @@ class ClassService
         $reponse = $this->repository->delete($id);
         return $reponse;
     }
+
+    public function classExists($id)
+    {
+        $response = $this->repository->classExists($id);
+        return $response;
+    }
+
+    public function updateClass($id, $data)
+    {
+        $response = $this->repository->updateClass($id, $data);
+        return $response;
+    }
 }

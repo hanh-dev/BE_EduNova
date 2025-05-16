@@ -8,6 +8,8 @@ use App\Services\ClassService;
 use App\Services\ClassUserService;
 use App\Services\UserService;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Log;
+
 
 class ClassController extends Controller
 {
@@ -108,4 +110,36 @@ class ClassController extends Controller
             'message' => 'Class deleted successfully.'
         ], 200);
     }
+
+    public function updateClass(Request $request, $id)
+    {
+        try {
+            $classExists = $this->service->classExists($id);
+            if (!$classExists) {
+                return response()->json(['status' => false, 'message' => 'Class Not Found'], 404);
+            }
+
+            $data = $request->only(['className', 'teacherName', 'description', 'image', 'students']);
+            $mappedData = [
+                'name' => $data['className'] ?? null,
+                'teacher_name' => $data['teacherName'] ?? null,
+                'description' => $data['description'] ?? null,
+                'image' => $data['image'] ?? null,
+                'students' => $data['students'] ?? null,
+            ];
+
+            $this->service->updateClass($id, $mappedData);
+
+            return response()->json(['status' => true, 'message' => 'Class updated successfully']);
+        } catch (\Exception $e) {
+            Log::error("Class update failed for id {$id}: " . $e->getMessage());
+
+            return response()->json([
+                'status' => false,
+                'message' => 'Update failed',
+                'error' => $e->getMessage()
+            ], 500);
+        }
+    }
+
 }
