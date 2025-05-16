@@ -19,4 +19,9 @@ class SelfStudyRepository{
     public function getAll(){
         return $this->selfStudy::all();
     }
+
+    public function create(array $data)
+    {
+        return $this->selfStudy->create($data);
+    }
 }

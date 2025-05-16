@@ -31,5 +31,9 @@ class SelfStudyService{
     {
         return $this->selfStudyRepository->find($id);
     }
-    
+
+    public function createGoal(array $data)
+    {
+        return $this->selfStudyRepository->create($data);
+    }
 }

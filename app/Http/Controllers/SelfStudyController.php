@@ -29,6 +29,27 @@ class SelfStudyController extends Controller
         return response()->json($goal, 200);
     }
 
-
-
+    public function store(Request $request)
+    {
+        $validated = $request->validate([
+            'user_id' => 'required|exists:users,id',
+            'week_id' => 'required|exists:weeks,id',
+            'date' => 'required|date',
+            'skill_module' => 'required|string|max:255',
+            'lesson_summary' => 'required|string',
+            'time_allocation' => 'required|string|max:255',
+            'learning_resources' => 'required|string',
+            'learning_activities' => 'required|string',
+            'concentration' => 'required|integer|min:1|max:5',
+            'follow_plan' => 'required|boolean',
+            'evaluation' => 'required|string',
+            'reinforcement' => 'nullable|string',
+            'notes' => 'nullable|string',
+        ]);
+    
+        $goal = $this->selfStudyService->createGoal($validated);
+    
+        return response()->json($goal, 201);
+    }
+    
 }
