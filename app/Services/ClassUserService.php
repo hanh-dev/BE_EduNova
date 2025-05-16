@@ -10,4 +10,9 @@ class ClassUserService
     {
         $this->repository = $classUserRepository;
     }
+
+    public function create($student_id, $class_id)
+    {
+        return $this->repository->create($student_id, $class_id);
+    }
 }

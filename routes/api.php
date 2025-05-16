@@ -14,16 +14,20 @@ Route::get('/user', function (Request $request) {
 Route::post('/v1/login', [AuthController::class, 'login']);
 Route::post('/v1/logout', [AuthController::class, 'logout']);
 
-Route::get('/v1/classes', [ClassController::class, 'index']);
 Route::get('/v1/teachers', [TeacherController::class, 'index']);
 
 Route::middleware('auth.jwt')->get('/profile', [ProductController::class, 'get']);
+// Class management
+Route::get('/v1/classes', [ClassController::class, 'index']);
+Route::post('/v1/classes', [ClassController::class, 'create']);
+Route::delete('/v1/classes/{id}', [ClassController::class, 'delete']);
 
-// Route::middleware('auth:api')->get('/profile', function () {
-//     $user = JWTAuth::parseToken()->authenticate();
-//     $user2 = Auth::user();
-//     return [
-//         "user1" => $user,
-//         "user2" => $user2
-//     ];
-// });
+Route::patch('/v1/test', function (Request $request) {
+    return response()->json([
+        'status' => true,
+        'message' => 'API Test Successfuleere',
+        'data' => $request->all()
+    ]);
+});
+
+Route::patch('/v1/classes/{id}', [ClassController::class, 'updateClass']);
