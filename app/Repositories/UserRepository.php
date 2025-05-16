@@ -23,4 +23,9 @@ class UserRepository
         $user = User::create($data);
         return $user;
     }
+
+    public function existUser($email)
+    {
+        return User::where('email', $email)->exists();
+    }
 }

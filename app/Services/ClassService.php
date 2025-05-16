@@ -22,4 +22,10 @@ class ClassService
         $reponse = $this->repository->create($data);
         return $reponse;
     }
+
+    public function delete($id)
+    {
+        $reponse = $this->repository->delete($id);
+        return $reponse;
+    }
 }

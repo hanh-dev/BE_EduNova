@@ -37,4 +37,9 @@ class ClassRepository
     {
         return ClassModel::create($data);
     }
+
+    public function delete($id)
+    {
+        return ClassModel::where('id', '=', $id)->delete();
+    }
 }

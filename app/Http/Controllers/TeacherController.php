@@ -2,10 +2,7 @@
 
 namespace App\Http\Controllers;
 
-use App\Http\Requests\StoreClassRequest;
 use App\Services\TeacherService;
-use App\Services\UserService;
-use GuzzleHttp\Psr7\Request;
 
 class TeacherController extends Controller
 {

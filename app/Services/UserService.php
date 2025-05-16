@@ -20,4 +20,9 @@ class UserService
     {
         return $this->repository->getUserId($name);
     }
+
+    public function emailExists($email)
+    {
+        return $this->repository->existUser($email);
+    }
 }

@@ -20,3 +20,4 @@ Route::middleware('auth.jwt')->get('/profile', [ProductController::class, 'get']
 // Class management
 Route::get('/v1/classes', [ClassController::class, 'index']);
 Route::post('/v1/classes', [ClassController::class, 'create']);
+Route::delete('/v1/classes/{id}', [ClassController::class, 'delete']);
