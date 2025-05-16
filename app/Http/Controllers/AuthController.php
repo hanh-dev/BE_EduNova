@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use PhpParser\Node\Stmt\TryCatch;
 use Tymon\JWTAuth\Facades\JWTAuth;
 
 class AuthController extends Controller
@@ -40,5 +41,14 @@ class AuthController extends Controller
             'token_type' => 'bearer',
             'expires_in' => config('jwt.ttl') * 60
         ]);
+    }
+
+    public function logout() {
+        try {
+            JWTAuth::invalidate(JWTAuth::getToken());
+            return response()->json(['success' => true, 'message' => 'Đăng xuất thành công']);
+        } catch (\Tymon\JWTAuth\Exceptions\JWTException $e) {
+             return response()->json(['success' => false,'error' => 'Không thể đăng xuất, token không hợp lệ'], 500);
+        }
     }
 }

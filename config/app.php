@@ -123,4 +123,8 @@ return [
         'store' => env('APP_MAINTENANCE_STORE', 'database'),
     ],
 
+    'console' => [
+        'kernel' => App\Console\Kernel::class,
+    ],
+
 ];
