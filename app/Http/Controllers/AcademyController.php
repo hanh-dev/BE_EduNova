@@ -30,11 +30,10 @@ class AcademyController extends Controller
             $data['media_file'] = $request->file('media_file');
         }   
         return response()->json($this->service->create($data), 201);
-         } 
-        catch (\Exception $e) {
-            return response()->json(['error' => $e->getMessage()], 500);
-        }
+    } catch (\Exception $e) {
+        return response()->json(['error' => $e->getMessage()], 500);
     }
+}
     public function show($id) {
         $academy = $this->service->get($id);
         return response()->json($this->service->list());
@@ -57,7 +56,7 @@ class AcademyController extends Controller
         return response()->json(['error' => $e->getMessage()], 500);
     }
 }
-    public function destroy($id) {
+public function destroy($id) {
     try {
         $this->service->delete($id);
         return response()->json(null, 204);
