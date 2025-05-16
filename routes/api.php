@@ -6,7 +6,7 @@ use App\Http\Controllers\AuthController;
 use App\Http\Controllers\ProductController;
 use Illuminate\Support\Facades\Auth;
 use Tymon\JWTAuth\Facades\JWTAuth;
-
+use App\Http\Controllers\AcademyController;
 Route::get('/user', function (Request $request) {
     return $request->user();
 })->middleware('auth:sanctum');
@@ -14,12 +14,8 @@ Route::get('/user', function (Request $request) {
 Route::post('/login', [AuthController::class, 'login']);
 
 Route::middleware('auth.jwt')->get('/profile', [ProductController::class, 'get']);
-
-// Route::middleware('auth:api')->get('/profile', function () {
-//     $user = JWTAuth::parseToken()->authenticate();
-//     $user2 = Auth::user();
-//     return [
-//         "user1" => $user,
-//         "user2" => $user2
-//     ];
-// });
+Route::get('/academies', [AcademyController::class, 'index']);
+Route::post('/academies', [AcademyController::class,'store']);
+Route::get('/academies/{id}', [AcademyController::class, 'show']);
+Route::put('/academies/{id}', [AcademyController::class, 'update']); 
+Route::delete('/academies/{id}', [AcademyController::class, 'destroy']); 
