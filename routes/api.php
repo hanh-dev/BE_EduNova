@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\GoalController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AuthController;
@@ -37,3 +38,11 @@ Route::post('/academies', [AcademyController::class,'store']);
 Route::get('/academies/{id}', [AcademyController::class, 'show']);
 Route::put('/academies/{id}', [AcademyController::class, 'update']); 
 Route::delete('/academies/{id}', [AcademyController::class, 'destroy']);
+
+
+Route::get('/goal', [GoalController::class, 'index']);
+Route::post('/goal', [GoalController::class, 'store']);
+Route::get('/goal/{id}', [GoalController::class, 'show']);
+Route::put('/goal/{id}', [GoalController::class, 'update']);
+Route::delete('/goal/{id}', [GoalController::class, 'destroy']);
+Route::put('/goal/{id}/completeStatus', [GoalController::class, 'updateCompleteStatus']);
