@@ -1,7 +1,6 @@
 <?php
 namespace App\Repositories;
 
-use App\Models\InCLass;
 use App\Models\SelfStudy;
 
 class SelfStudyRepository{
@@ -24,4 +23,6 @@ class SelfStudyRepository{
     {
         return $this->selfStudy->create($data);
     }
+
+    
 }

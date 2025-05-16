@@ -35,6 +35,6 @@ Route::put('/inclass/{id}',[InClassController::class,'update']);
 Route::get('/inclass/{id}',[InClassController::class,'show']);
 
 Route::get('/selfstudy',[SelfStudyController::class,'index']);
-// Route::put('/selfstudy/{id}',[SelfStudyController::class,'update']);
-// Route::get('/selfstudyclass',[SelfStudyController::class,'show']);
-
+Route::get('/selfstudy/{id}', [SelfStudyController::class, 'show']); 
+Route::put('/selfstudy/{id}', [SelfStudyController::class, 'update']); 
+Route::post('/selfstudy', [SelfStudyController::class, 'store']); 

@@ -25,6 +25,7 @@ namespace App\Models;
             'evaluation',   
             'reinforcement',
             'notes',
+            'status',
         ];
 
         public function user()

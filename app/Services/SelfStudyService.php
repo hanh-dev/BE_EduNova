@@ -27,12 +27,12 @@ class SelfStudyService{
         return $selfstudy;
     }
 
-    public function getInClasServiceById($id)
+    public function getSelfClassById($id)
     {
         return $this->selfStudyRepository->find($id);
     }
 
-    public function createGoal(array $data)
+    public function createSeflClass(array $data)
     {
         return $this->selfStudyRepository->create($data);
     }

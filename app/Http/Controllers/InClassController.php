@@ -20,7 +20,7 @@ class InClassController extends Controller
 
     public function show($id)
     {
-        $goal = $this->inClassService->getInClasServiceById($id);
+        $goal = $this->inClassService->createSeflClass($id);
 
         if (!$goal) {
             return response()->json(['message' => 'Goal not found'], 404);
