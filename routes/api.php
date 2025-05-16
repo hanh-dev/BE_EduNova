@@ -6,6 +6,7 @@ use App\Http\Controllers\AuthController;
 use App\Http\Controllers\ProductController;
 use App\Http\Controllers\ClassController;
 use App\Http\Controllers\TeacherController;
+use App\Http\Controllers\UserController;
 
 use Illuminate\Support\Facades\Auth;
 use Tymon\JWTAuth\Facades\JWTAuth;
@@ -24,18 +25,15 @@ Route::middleware('auth.jwt')->get('/profile', [ProductController::class, 'get']
 Route::get('/v1/classes', [ClassController::class, 'index']);
 Route::post('/v1/classes', [ClassController::class, 'create']);
 Route::delete('/v1/classes/{id}', [ClassController::class, 'delete']);
-
-Route::patch('/v1/test', function (Request $request) {
-    return response()->json([
-        'status' => true,
-        'message' => 'API Test Successfuleere',
-        'data' => $request->all()
-    ]);
-});
+Route::patch('/v1/classes/{id}', [ClassController::class, 'updateClass']);
+// Student management
+Route::get('/v1/students', [UserController::class, 'getStudents']);
+// Teacher management
+Route::get('/v1/teachers', [UserController::class, 'getTeachers']);
 
 Route::patch('/v1/classes/{id}', [ClassController::class, 'updateClass']);
 Route::get('/academies', [AcademyController::class, 'index']);
 Route::post('/academies', [AcademyController::class,'store']);
 Route::get('/academies/{id}', [AcademyController::class, 'show']);
 Route::put('/academies/{id}', [AcademyController::class, 'update']); 
-Route::delete('/academies/{id}', [AcademyController::class, 'destroy']); 
+Route::delete('/academies/{id}', [AcademyController::class, 'destroy']);

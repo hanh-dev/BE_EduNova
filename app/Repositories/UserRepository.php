@@ -12,6 +12,12 @@ class UserRepository
         $this->model = $user;
     }
 
+    public function getStudents()
+    {
+        $students = User::where('role', '=', 'student')->get();
+        return $students;
+    }
+
     public function getUserId($name)
     {
         $user = User::where('name', $name)->first();
@@ -27,5 +33,11 @@ class UserRepository
     public function existUser($email)
     {
         return User::where('email', $email)->exists();
+    }
+
+    public function getTeachers()
+    {
+        $teachers = User::where('role', '=', 'teacher')->get();
+        return $teachers;
     }
 }

@@ -11,6 +11,11 @@ class UserService
         $this->repository = $userRepository;
     }
 
+    public function index()
+    {
+        return $this->repository->getStudents();
+    }
+
     public function create($data)
     {
         return $this->repository->createUser($data);
@@ -24,5 +29,10 @@ class UserService
     public function emailExists($email)
     {
         return $this->repository->existUser($email);
+    }
+
+    public function getTeachers()
+    {
+        return $this->repository->getTeachers();
     }
 }
