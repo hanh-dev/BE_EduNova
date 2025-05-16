@@ -22,28 +22,29 @@ Route::get('/user', function (Request $request) {
 Route::post('/v1/login', [AuthController::class, 'login']);
 Route::post('/v1/logout', [AuthController::class, 'logout']);
 
-Route::get('/v1/classes', [ClassController::class, 'index']);
 Route::get('/v1/teachers', [TeacherController::class, 'index']);
 
 Route::middleware('auth.jwt')->get('/profile', [ProductController::class, 'get']);
+// Class management
+Route::get('/v1/classes', [ClassController::class, 'index']);
+Route::post('/v1/classes', [ClassController::class, 'create']);
+Route::delete('/v1/classes/{id}', [ClassController::class, 'delete']);
 
-// Route::middleware('auth:api')->get('/profile', function () {
-//     $user = JWTAuth::parseToken()->authenticate();
-//     $user2 = Auth::user();
-//     return [
-//         "user1" => $user,
-//         "user2" => $user2
-//     ];
-// });
+Route::patch('/v1/test', function (Request $request) {
+    return response()->json([
+        'status' => true,
+        'message' => 'API Test Successfuleere',
+        'data' => $request->all()
+    ]);
+});
+
+Route::patch('/v1/classes/{id}', [ClassController::class, 'updateClass']);
 Route::get('/inclass',[InClassController::class,'index']);
 Route::put('/inclass/{id}',[InClassController::class,'update']);
 Route::get('/inclass/{id}',[InClassController::class,'show']);
 
 Route::get('/selfstudy',[SelfStudyController::class,'index']);
-// Route::put('/selfstudy/{id}',[SelfStudyController::class,'update']);
-// Route::get('/selfstudyclass',[SelfStudyController::class,'show']);
-
-
+//Semester's Goal
 Route::get('/goal', [GoalController::class, 'index']);
 Route::post('/goal', [GoalController::class, 'store']);
 Route::get('/goal/{id}', [GoalController::class, 'show']);
@@ -58,5 +59,5 @@ Route::put('/week-goals/{id}', [WeekGoalController::class, 'updateWeekGoal']);
 Route::put('/week-goals/{id}/status', [WeekGoalController::class, 'updateWeekGoalStatus']);
 Route::delete('/week-goals/{id}', [WeekGoalController::class, 'deleteWeekGoal']);
 Route::get('/week-goals/status/{status}', [WeekGoalController::class, 'getWeekGoalsByStatus']);
-
+//Task
 Route::get('/task', [TaskController::class, 'index']);

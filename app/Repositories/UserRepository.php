@@ -11,4 +11,21 @@ class UserRepository
     {
         $this->model = $user;
     }
+
+    public function getUserId($name)
+    {
+        $user = User::where('name', $name)->first();
+        return $user?->id;
+    }
+
+    public function createUser($data)
+    {
+        $user = User::create($data);
+        return $user;
+    }
+
+    public function existUser($email)
+    {
+        return User::where('email', $email)->exists();
+    }
 }
