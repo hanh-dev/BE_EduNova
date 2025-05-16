@@ -25,6 +25,10 @@ class ProductController extends Controller
         }
     }
 
+    public function create(Request $req){
+        return response()->json($this->service->createProduct($req->all()),202);
+    }
+
     public function get()
     {
         return response()->json(['message' => 'Test Nha']);
