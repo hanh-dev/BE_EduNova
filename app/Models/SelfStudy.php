@@ -4,11 +4,11 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class InClass extends Model
+class SelfStudy extends Model
 {
     use HasFactory;
 
-    protected $table = 'in_class_journals';
+    protected $table = 'self_study_journals';
 
     protected $fillable = [
         'user_id',    
@@ -16,10 +16,15 @@ class InClass extends Model
         'date',
         'skill_module',
         'lesson_summary',
+        'time_allocation',
+        'learning_resources',
+        'learning_activities',
+        'concentration',
+        'follow_plan',
         'self_assessment',
-        'difficulties',
-        'improvement_plan',
-        'problem_solved',
+        'evaluation',
+        'reinforcement',
+        'notes',
     ];
 
     public function user()

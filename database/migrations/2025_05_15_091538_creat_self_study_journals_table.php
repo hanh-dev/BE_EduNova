@@ -11,29 +11,30 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('self_studies', function (Blueprint $table) {
+        Schema::create('self_study_journals', function (Blueprint $table) {
             $table->id();
+            $table->foreignId('user_id')->constrained('users')->onDelete('cascade');
+            $table->foreignId('week_id')->constrained('weeks')->onDelete('cascade');
             $table->date('date');
             $table->string('skill_module');
-            $table->text('my_lesson');
-            $table->string('time_allocation');
+            $table->text('lesson_summary');
+            $table->integer('time_allocation');
             $table->text('learning_resources');
             $table->text('learning_activities');
-            $table->enum('concentration', ['Yes', 'No', 'Not sure']);
-            $table->text('plan_follow_plan');
-            $table->string('evaluation'); 
-            $table->text('reinforcing_learning');
+            $table->unsignedTinyInteger('concentration');
+            $table->text('follow_plan');
+            $table->text('evaluation');
+            $table->text('reinforcement');
             $table->text('notes')->nullable();
             $table->timestamps();
         });
     }
-    
 
     /**
      * Reverse the migrations.
      */
     public function down(): void
     {
-        Schema::dropIfExists('selfstudy');
+        Schema::dropIfExists('self_study_journals');
     }
 };
