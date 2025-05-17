@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\GoalController;
+use App\Http\Controllers\SemesterController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AuthController;
@@ -46,3 +47,9 @@ Route::get('/goal/{id}', [GoalController::class, 'show']);
 Route::put('/goal/{id}', [GoalController::class, 'update']);
 Route::delete('/goal/{id}', [GoalController::class, 'destroy']);
 Route::put('/goal/{id}/completeStatus', [GoalController::class, 'updateCompleteStatus']);
+
+//Semester
+
+
+Route::get('/semester', [SemesterController::class, 'index']);
+Route::get('/semester/{id}', [SemesterController::class, 'show']);

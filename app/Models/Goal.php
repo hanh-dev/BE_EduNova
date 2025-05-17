@@ -22,6 +22,7 @@ class Goal extends Model
         'selfExpectations',
         'dueDate',
         'completeStatus', 
+         'semester_id',
     ];
 
     // Quan hệ với User

@@ -41,7 +41,9 @@ class GoalController extends Controller
             'teacherExpectations' => 'required|string',
             'selfExpectations' => 'required|string',
             'dueDate' => 'required|date',
-            'completeStatus' => 'in:doing,done', // Kiểm tra trạng thái hợp lệ
+            'completeStatus' => 'in:doing,done', 
+            'semester_id' => 'nullable|integer|exists:semesters,id',
+
         ]);
 
         // Tạo mục tiêu mới
@@ -61,7 +63,9 @@ class GoalController extends Controller
             'teacherExpectations' => 'required|string',
             'selfExpectations' => 'required|string',
             'dueDate' => 'required|date',
-            'completeStatus' => 'in:doing,done'  // Kiểm tra trạng thái hợp lệ
+            'completeStatus' => 'in:doing,done',
+            'semester_id' => 'nullable|integer|exists:semesters,id',
+
         ]);
 
         $goal = $this->goalService->updateGoal($id, $validated);
