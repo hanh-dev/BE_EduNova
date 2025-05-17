@@ -67,6 +67,7 @@ class ClassController extends Controller
                     ], 422);
                 }
 
+                $studentData['image'] = $studentData['image'] ?? 'ItEnglish.png';
                 $student = $this->userService->create($studentData);
                 if (!$student) {
                     DB::rollBack();

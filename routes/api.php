@@ -15,6 +15,9 @@ use App\Models\SelfStudy;
 use Illuminate\Support\Facades\Auth;
 use Tymon\JWTAuth\Facades\JWTAuth;
 use App\Http\Controllers\AcademyController;
+use App\Http\Controllers\TaskController;
+use App\Http\Controllers\WeekGoalController;
+
 Route::get('/user', function (Request $request) {
     return $request->user();
 })->middleware('auth:sanctum');
@@ -50,14 +53,7 @@ Route::put('/goal/{id}', [GoalController::class, 'update']);
 Route::delete('/goal/{id}', [GoalController::class, 'destroy']);
 Route::put('/goal/{id}/completeStatus', [GoalController::class, 'updateCompleteStatus']);
 
-// Route::middleware('auth:api')->get('/profile', function () {
-//     $user = JWTAuth::parseToken()->authenticate();
-//     $user2 = Auth::user();
-//     return [
-//         "user1" => $user,
-//         "user2" => $user2
-//     ];
-// });
+
 Route::get('/inclass',[InClassController::class,'index']);
 Route::put('/inclass/{id}',[InClassController::class,'update']);
 Route::get('/inclass/{id}',[InClassController::class,'show']);
@@ -65,4 +61,16 @@ Route::get('/inclass/{id}',[InClassController::class,'show']);
 Route::get('/selfstudy',[SelfStudyController::class,'index']);
 Route::get('/selfstudy/{id}', [SelfStudyController::class, 'show']); 
 Route::put('/selfstudy/{id}', [SelfStudyController::class, 'update']); 
-Route::post('/selfstudy', [SelfStudyController::class, 'store']); 
+Route::post('/selfstudy', [SelfStudyController::class, 'store']);
+
+// 
+Route::get('/task', [TaskController::class, 'index']);
+
+//Week's Goal
+Route::get('/week-goals', [WeekGoalController::class, 'getAllWeekGoals']);
+Route::get('/week-goals/{id}', [WeekGoalController::class, 'getWeekGoal']);
+Route::post('/week-goals', [WeekGoalController::class, 'storeWeekGoal']);
+Route::put('/week-goals/{id}', [WeekGoalController::class, 'updateWeekGoal']);
+Route::put('/week-goals/{id}/status', [WeekGoalController::class, 'updateWeekGoalStatus']);
+Route::delete('/week-goals/{id}', [WeekGoalController::class, 'deleteWeekGoal']);
+Route::get('/week-goals/status/{status}', [WeekGoalController::class, 'getWeekGoalsByStatus']);
