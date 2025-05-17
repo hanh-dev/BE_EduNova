@@ -8,11 +8,11 @@ class InClass extends Model
 {
     use HasFactory;
 
-    protected $table = 'in_class_journals';
+    protected $table = 'in_class_journal';
 
     protected $fillable = [
-        'user_id',    
-        'week_id',  
+        'user_id',
+        'goal_id',
         'date',
         'skill_module',
         'lesson_summary',
@@ -21,9 +21,10 @@ class InClass extends Model
         'improvement_plan',
         'problem_solved',
     ];
-
     public function user()
     {
         return $this->belongsTo(User::class);
     }
+
+    
 }
