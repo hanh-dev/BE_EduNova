@@ -74,3 +74,9 @@ Route::put('/week-goals/{id}', [WeekGoalController::class, 'updateWeekGoal']);
 Route::put('/week-goals/{id}/status', [WeekGoalController::class, 'updateWeekGoalStatus']);
 Route::delete('/week-goals/{id}', [WeekGoalController::class, 'deleteWeekGoal']);
 Route::get('/week-goals/status/{status}', [WeekGoalController::class, 'getWeekGoalsByStatus']);
+
+
+// Test
+// Route::get('/upload-form', [UserController::class, 'get']);
+Route::post('/v1/student', [UserController::class, 'create']);
+Route::delete('/v1/student/{id}', [UserController::class, 'destroyStudent']);

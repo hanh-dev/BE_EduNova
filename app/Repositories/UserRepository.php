@@ -40,4 +40,19 @@ class UserRepository
         $teachers = User::where('role', '=', 'teacher')->get();
         return $teachers;
     }
+
+    public function createStudent($data)
+    {
+        return User::create([
+            'name' => $data['name'],
+            'email' => $data['email'],
+            'password' => $data['password'],
+            'image' => $data['image']
+        ]);
+    }
+
+    public function destroy($id)
+    {
+        return User::where('id', $id)->delete();
+    }
 }

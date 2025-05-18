@@ -35,4 +35,14 @@ class UserService
     {
         return $this->repository->getTeachers();
     }
+
+    public function createStudent($data)
+    {
+        return $this->repository->createStudent($data);
+    }
+
+    public function destroyStudent($id)
+    {
+        return $this->repository->destroy($id);
+    }
 }
