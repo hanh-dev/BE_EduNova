@@ -108,12 +108,10 @@ class GoalController extends Controller
     }
     public function getGoalsByStatus($status)
 {
-    // Kiểm tra trạng thái hợp lệ
     if (!in_array($status, ['doing', 'done'])) {
         return response()->json(['message' => 'Invalid status'], 400);
     }
 
-    // Lấy các mục tiêu với trạng thái tương ứng
     $goals = $this->goalService->getGoalsByStatus($status);
 
     return response()->json($goals, 200);

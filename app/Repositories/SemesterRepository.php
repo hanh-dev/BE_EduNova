@@ -15,4 +15,9 @@ class SemesterRepository
     {
         return Semester::findOrFail($id);
     }
+
+     public function create(array $data)
+    {
+        return Semester::create($data);
+    }
 }

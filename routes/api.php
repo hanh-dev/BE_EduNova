@@ -53,3 +53,4 @@ Route::put('/goal/{id}/completeStatus', [GoalController::class, 'updateCompleteS
 
 Route::get('/semester', [SemesterController::class, 'index']);
 Route::get('/semester/{id}', [SemesterController::class, 'show']);
+Route::post('/semester', [SemesterController::class, 'store']);

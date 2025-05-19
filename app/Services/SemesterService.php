@@ -22,4 +22,16 @@ class SemesterService
     {
         return $this->semesterRepository->getById($id);
     }
+public function createSemester(array $data)
+{
+    $existingSemesters = $this->semesterRepository->getAll();
+    $nextNumber = count($existingSemesters) + 1;
+    
+    if (!isset($data['name']) || empty($data['name'])) {
+        $data['name'] = "Học kỳ " . $nextNumber;
+    }
+
+    return $this->semesterRepository->create($data);
+}
+
 }
