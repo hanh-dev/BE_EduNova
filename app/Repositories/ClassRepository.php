@@ -35,6 +35,9 @@ class ClassRepository
 
     public function create(array $data)
     {
+        if (empty($data['image'])) {
+            $data['image'] = 'ItEnglish.png';
+        }
         return ClassModel::create($data);
     }
 

@@ -5,14 +5,20 @@ use App\Http\Controllers\SemesterController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AuthController;
+use App\Http\Controllers\InClassController;
+use App\Http\Controllers\SelfStudyController;
 use App\Http\Controllers\ProductController;
 use App\Http\Controllers\ClassController;
 use App\Http\Controllers\TeacherController;
 use App\Http\Controllers\UserController;
+use App\Models\SelfStudy;
 
 use Illuminate\Support\Facades\Auth;
 use Tymon\JWTAuth\Facades\JWTAuth;
 use App\Http\Controllers\AcademyController;
+use App\Http\Controllers\TaskController;
+use App\Http\Controllers\WeekGoalController;
+
 Route::get('/user', function (Request $request) {
     return $request->user();
 })->middleware('auth:sanctum');
@@ -49,8 +55,32 @@ Route::delete('/goal/{id}', [GoalController::class, 'destroy']);
 Route::put('/goal/{id}/completeStatus', [GoalController::class, 'updateCompleteStatus']);
 
 //Semester
-
-
 Route::get('/semester', [SemesterController::class, 'index']);
 Route::get('/semester/{id}', [SemesterController::class, 'show']);
 Route::post('/semester', [SemesterController::class, 'store']);
+
+//Week's Goal
+Route::get('/week-goals', [WeekGoalController::class, 'getAllWeekGoals']);
+Route::get('/week-goals/{id}', [WeekGoalController::class, 'getWeekGoal']);
+Route::post('/week-goals', [WeekGoalController::class, 'storeWeekGoal']);
+Route::put('/week-goals/{id}', [WeekGoalController::class, 'updateWeekGoal']);
+Route::put('/week-goals/{id}/status', [WeekGoalController::class, 'updateWeekGoalStatus']);
+Route::delete('/week-goals/{id}', [WeekGoalController::class, 'deleteWeekGoal']);
+Route::get('/week-goals/status/{status}', [WeekGoalController::class, 'getWeekGoalsByStatus']);
+
+// Inclass
+Route::get('/inclass',[InClassController::class,'index']);
+Route::put('/inclass/{id}',[InClassController::class,'update']);
+Route::get('/inclass/{id}',[InClassController::class,'show']);
+Route::delete('/inclass/{id}',[InClassController::class,'destroy']);
+
+// SelfStudy
+Route::get('/selfstudy',[SelfStudyController::class,'index']);
+Route::get('/selfstudy/{id}', [SelfStudyController::class, 'show']); 
+Route::put('/selfstudy/{id}', [SelfStudyController::class, 'update']); 
+Route::post('/selfstudy', [SelfStudyController::class, 'store']);
+Route::delete('/selfstudy/{id}', [SelfStudyController::class, 'destroy']);
+
+
+// Task
+Route::get('/task', [TaskController::class, 'index']);

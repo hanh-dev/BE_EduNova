@@ -8,7 +8,7 @@ return new class extends Migration
 {
     /**
      * Run the migrations.
-     */
+     */ 
     public function up(): void
     {
         Schema::create('self_study_journals', function (Blueprint $table) {
@@ -26,6 +26,7 @@ return new class extends Migration
             $table->text('evaluation');
             $table->text('reinforcement');
             $table->text('notes')->nullable();
+            $table->enum('status', ['inprogress', 'done', 'cancel'])->default('inprogress');
             $table->timestamps();
         });
     }
