@@ -45,4 +45,9 @@ class UserService
     {
         return $this->repository->destroy($id);
     }
+
+    public function updateStudent($id, $data)
+    {
+        return $this->repository->update($id, $data);
+    }
 }

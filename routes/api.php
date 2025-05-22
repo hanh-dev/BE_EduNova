@@ -15,6 +15,7 @@ use App\Models\SelfStudy;
 use Illuminate\Support\Facades\Auth;
 use Tymon\JWTAuth\Facades\JWTAuth;
 use App\Http\Controllers\AcademyController;
+use App\Http\Controllers\MessageController;
 use App\Http\Controllers\TaskController;
 use App\Http\Controllers\WeekGoalController;
 
@@ -80,3 +81,6 @@ Route::get('/week-goals/status/{status}', [WeekGoalController::class, 'getWeekGo
 // Route::get('/upload-form', [UserController::class, 'get']);
 Route::post('/v1/student', [UserController::class, 'create']);
 Route::delete('/v1/student/{id}', [UserController::class, 'destroyStudent']);
+Route::patch('/v1/student/{id}', [UserController::class, 'updateStudent']);
+Route::post('/v1/messages/send', [MessageController::class, 'sendMessage']);
+Route::post('/v1/messages/reply', [MessageController::class, 'replyToStudent']);

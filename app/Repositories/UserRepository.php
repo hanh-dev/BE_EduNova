@@ -55,4 +55,9 @@ class UserRepository
     {
         return User::where('id', $id)->delete();
     }
+
+    public function update($id, $data)
+    {
+        return User::where('id', $id)->update($data);
+    }
 }
