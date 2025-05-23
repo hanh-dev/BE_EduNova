@@ -18,6 +18,7 @@ use App\Http\Controllers\AcademyController;
 use App\Http\Controllers\MessageController;
 use App\Http\Controllers\TaskController;
 use App\Http\Controllers\WeekGoalController;
+use App\Http\Controllers\TagTeacherController;
 
 Route::get('/user', function (Request $request) {
     return $request->user();
@@ -84,3 +85,6 @@ Route::delete('/v1/student/{id}', [UserController::class, 'destroyStudent']);
 Route::patch('/v1/student/{id}', [UserController::class, 'updateStudent']);
 Route::post('/v1/messages/send', [MessageController::class, 'sendMessage']);
 Route::post('/v1/messages/reply', [MessageController::class, 'replyToStudent']);
+
+//Tag Teacher
+Route::post('/tag-teacher', [TagTeacherController::class, 'sendTagTeacher']);
