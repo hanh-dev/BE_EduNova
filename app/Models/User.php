@@ -22,6 +22,7 @@ class User extends Authenticatable implements JWTSubject
         'email',
         'password',
         'image',
+        'role'
     ];
 
     /**
@@ -84,6 +85,34 @@ class User extends Authenticatable implements JWTSubject
     public function classUsers()
     {
         return $this->hasMany(ClassUser::class, 'student_id');
+    }
+
+    
+    use Notifiable;
+
+    // ... các thuộc tính khác, fillable, hidden ...
+
+    // Kiểm tra role
+    public function isStudent()
+    {
+        return $this->role === 'student';
+    }
+
+    public function isTeacher()
+    {
+        return $this->role === 'teacher';
+    }
+
+    // Quan hệ đã gửi thông báo
+    public function sentNotifications()
+    {
+        return $this->hasMany(Notification::class, 'sender_id');
+    }
+
+    // Quan hệ đã nhận thông báo
+    public function receivedNotifications()
+    {
+        return $this->hasMany(Notification::class, 'receiver_id');
     }
 
 }

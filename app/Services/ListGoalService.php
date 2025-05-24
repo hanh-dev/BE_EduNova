@@ -18,23 +18,13 @@ class ListGoalService
         return $this->repository->getAll();
     }
 
-    public function getGoalById($id)
-    {
-        return $this->repository->findById($id);
-    }
-
     public function createGoal($data)
     {
         return $this->repository->create($data);
     }
 
-    public function updateGoal($id, $data)
+    public function updateGoalStatus($id, $status)
     {
-        return $this->repository->update($id, $data);
-    }
-
-    public function deleteGoal($id)
-    {
-        return $this->repository->delete($id);
+        return $this->repository->updateStatus($id, $status);
     }
 }

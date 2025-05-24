@@ -17,4 +17,9 @@ class TeacherService
         return $this->repository->getAllWithDetails();
     }
 
+    public function createTeacher($data)
+    {
+        return $this->repository->createTeacher($data);
+    }
+
 }

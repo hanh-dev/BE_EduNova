@@ -16,4 +16,15 @@ class TeacherRepository
     {
         return User::where('role', 'teacher')->get();
     }
+
+    public function createTeacher($data)
+    {
+        return User::create([
+            'name' => $data['name'],
+            'email' => $data['email'],
+            'password' => $data['password'],
+            'image' => $data['image'],
+            'role' => 'teacher'
+        ]);
+    }
 }
