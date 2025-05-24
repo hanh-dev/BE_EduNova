@@ -138,5 +138,4 @@ class UserController extends Controller
             'message' => $updated ? 'Student updated successfully' : 'Update failed'
         ]);
     }
-
 }
