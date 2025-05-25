@@ -18,7 +18,7 @@ use App\Http\Controllers\AcademyController;
 use App\Http\Controllers\MessageController;
 use App\Http\Controllers\TaskController;
 use App\Http\Controllers\WeekGoalController;
-use App\Http\Controllers\ListGoalController1;
+use App\Http\Controllers\ListGoalController;
 use App\Http\Controllers\NotificationController;
 Route::get('/user', function (Request $request) {
     return $request->user();
@@ -77,9 +77,9 @@ Route::put('/week-goals/{id}/status', [WeekGoalController::class, 'updateWeekGoa
 Route::delete('/week-goals/{id}', [WeekGoalController::class, 'deleteWeekGoal']);
 Route::get('/week-goals/status/{status}', [WeekGoalController::class, 'getWeekGoalsByStatus']);
 //listgoal
-Route::get('/listgoals', [ListGoalController1::class, 'index']);
-Route::post('/listgoals', [ListGoalController1::class, 'store']);
-Route::put('/listgoals/{id}/status', [ListGoalController1::class, 'updateStatus']);
+Route::get('/listgoals', [ListGoalController::class, 'index']);
+Route::post('/listgoals', [ListGoalController::class, 'store']);
+Route::put('/listgoals/{id}/status', [ListGoalController::class, 'updateStatus']);
 
 // Test
 // Route::get('/upload-form', [UserController::class, 'get']);

@@ -7,7 +7,7 @@ use Illuminate\Http\Request;
 use App\Services\ListGoalService;
 use Illuminate\Support\Facades\Log;
 
-class ListGoalController1 extends Controller
+class ListGoalController extends Controller
 {
     protected $service;
 
