@@ -52,7 +52,7 @@ class InClassController extends Controller
                 'problem_solved' => $request->problem_solved ? 1 : 0
             ]);
         } else {
-
+ 
             $request->merge([
                 'problem_solved' => 0
             ]);
