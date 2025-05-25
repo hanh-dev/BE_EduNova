@@ -14,10 +14,20 @@ class GoalController extends Controller
         $this->goalService = $goalService;
     }
 
-    public function index()
-    {
-        return response()->json($this->goalService->getAllGoals(), 200);
+public function index(Request $request)
+{
+    $userId = $request->query('user_id');
+
+    // Nếu có user_id thì lọc theo user
+    if ($userId) {
+        $goals = $this->goalService->getGoalsByUserId($userId);
+    } else {
+        // Nếu không có user_id thì trả về tất cả goals
+        $goals = $this->goalService->getAllGoals();
     }
+
+    return response()->json($goals, 200);
+}
 
     public function show($id)
     {
@@ -41,7 +51,9 @@ class GoalController extends Controller
             'teacherExpectations' => 'required|string',
             'selfExpectations' => 'required|string',
             'dueDate' => 'required|date',
-            'completeStatus' => 'in:doing,done', // Kiểm tra trạng thái hợp lệ
+            'completeStatus' => 'in:doing,done', 
+            'semester_id' => 'nullable|integer|exists:semesters,id',
+
         ]);
 
         // Tạo mục tiêu mới
@@ -61,7 +73,9 @@ class GoalController extends Controller
             'teacherExpectations' => 'required|string',
             'selfExpectations' => 'required|string',
             'dueDate' => 'required|date',
-            'completeStatus' => 'in:doing,done'  // Kiểm tra trạng thái hợp lệ
+            'completeStatus' => 'in:doing,done',
+            'semester_id' => 'nullable|integer|exists:semesters,id',
+
         ]);
 
         $goal = $this->goalService->updateGoal($id, $validated);
@@ -83,7 +97,7 @@ class GoalController extends Controller
         $goal = $this->goalService->updateGoalStatus($id, $validated['completeStatus']);
 
         if (!$goal) {
-            return response()->json(['message' => 'Goal not found'], 404);
+return response()->json(['message' => 'Goal not found'], 404);
         }
 
         return response()->json($goal, 200); // Trả lại goal đã được cập nhật
@@ -104,12 +118,10 @@ class GoalController extends Controller
     }
     public function getGoalsByStatus($status)
 {
-    // Kiểm tra trạng thái hợp lệ
     if (!in_array($status, ['doing', 'done'])) {
         return response()->json(['message' => 'Invalid status'], 400);
     }
 
-    // Lấy các mục tiêu với trạng thái tương ứng
     $goals = $this->goalService->getGoalsByStatus($status);
 
     return response()->json($goals, 200);

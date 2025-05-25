@@ -1,39 +1,40 @@
-<?php 
+<?php
+
 namespace App\Services;
 
 use App\Repositories\SelfStudyRepository;
 
-class SelfStudyService{
-    protected $selfStudyRepository;
+class SelfStudyService
+{
+    protected $repository;
 
-    public function __construct(SelfStudyRepository $selfStudyRepository)
+    public function __construct(SelfStudyRepository $repository)
     {
-        $this->selfStudyRepository = $selfStudyRepository;
-    }
-    public function getAllClass(){
-        return $this->selfStudyRepository->getAll();
+        $this->repository = $repository;
     }
 
-    public function updateSelfStudy($id,array $data)
+    public function getAll()
     {
-        $selfstudy = $this->selfStudyRepository->find($id);
-
-        if (!$selfstudy) {
-            return null;
-        }
-
-        $selfstudy->update($data);
-
-        return $selfstudy;
+        return $this->repository->getAll();
     }
 
-    public function getSelfClassById($id)
+    public function getById($id)
     {
-        return $this->selfStudyRepository->find($id);
+        return $this->repository->find($id);
     }
 
-    public function createSeflClass(array $data)
+    public function create(array $data)
     {
-        return $this->selfStudyRepository->create($data);
+        return $this->repository->create($data);
+    }
+
+    public function update($id, array $data)
+    {
+        return $this->repository->update($id, $data);
+    }
+
+    public function delete($id)
+    {
+        return $this->repository->delete($id);
     }
 }
