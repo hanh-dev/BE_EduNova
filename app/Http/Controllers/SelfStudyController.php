@@ -2,92 +2,92 @@
 
 namespace App\Http\Controllers;
 
-use App\Services\SelfStudyService;
 use Illuminate\Http\Request;
+use App\Services\SelfStudyService;
 
 class SelfStudyController extends Controller
 {
-    protected $selfStudyService;
+    protected $service;
 
-    public function __construct(SelfStudyService $SelfStudyService)
+    public function __construct(SelfStudyService $service)
     {
-        $this->selfStudyService = $SelfStudyService;
+        $this->service = $service;
     }
+
     public function index()
     {
-        return response()->json($this->selfStudyService->getAllClass(), 200);
+        return response()->json($this->service->getAll());
     }
 
     public function show($id)
     {
-        $goal = $this->selfStudyService->getSelfClassById($id);
-
-        if (!$goal) {
-            return response()->json(['message' => 'Goal not found'], 404);
+        $record = $this->service->getById($id);
+        if (!$record) {
+            return response()->json(['message' => 'Not found'], 404);
         }
-
-        return response()->json($goal, 200);
+        return response()->json($record);
     }
 
     public function store(Request $request)
     {
-        $validated = $request->validate([
-            'user_id' => 'required|exists:users,id',
-            'week_id' => 'required|exists:weeks,id',
+        $data = $request->validate([
+            'user_id' => 'required|integer',
+            'week_id' => 'required|integer',
             'date' => 'required|date',
-            'skill_module' => 'required|string|max:255',
+            'skill_module' => 'required|string',
             'lesson_summary' => 'required|string',
-            'time_allocation' => 'required|string|max:255',
+            'time_allocation' => 'required|integer',
             'learning_resources' => 'required|string',
             'learning_activities' => 'required|string',
-            'concentration' => 'required|integer|min:1|max:5',
-            'follow_plan' => 'required|boolean',
+            'concentration' => 'required|integer',
+            'follow_plan' => 'required|string',
             'evaluation' => 'required|string',
-            'reinforcement' => 'nullable|string',
+            'reinforcement' => 'required|string',
             'notes' => 'nullable|string',
             'status' => 'required|in:inprogress,done,cancel',
         ]);
-    
-        $goal = $this->selfStudyService->createGoal($validated);
-    
-        return response()->json($goal, 201);
+
+        $record = $this->service->create($data);
+
+        return response()->json($record, 201);
     }
 
-    public function update (Request $request, $id){
-        $validated = $request->validate([
-            'user_id' => 'required|exists:users,id',
-            'week_id' => 'required|exists:weeks,id',
-            'date' => 'required|date',
-            'skill_module' => 'required|string|max:255',
-            'lesson_summary' => 'required|string',
-            'time_allocation' => 'required|string|max:255',
-            'learning_resources' => 'required|string',
-            'learning_activities' => 'required|string',
-            'concentration' => 'required|integer|min:1|max:5',
-            'follow_plan' => 'required|boolean',
-            'evaluation' => 'required|string',
-            'reinforcement' => 'nullable|string',
-            'notes' => 'nullable|string',
-            'status' => 'required|in:inprogress,done,cancel',
-        ]);
-        $selfClass = $this->selfStudyService->updateSelfStudy($id, $validated);
-
-        if (!$selfClass) {
-            return response()->json(['message' => 'selfClass not found'], 404);
-        }
-
-        return response()->json($selfClass,200);
-    }
-
-
-    public function edit($id)
+    public function update(Request $request, $id)
     {
-        $selfClass = $this->selfStudyService->getSelfClassById($id);
+        $data = $request->validate([
+            'user_id' => 'sometimes|integer',
+            'week_id' => 'sometimes|integer',
+            'date' => 'sometimes|date',
+            'skill_module' => 'sometimes|string',
+            'lesson_summary' => 'sometimes|string',
+            'time_allocation' => 'sometimes|integer',
+            'learning_resources' => 'sometimes|string',
+            'learning_activities' => 'sometimes|string',
+            'concentration' => 'sometimes|integer',
+            'follow_plan' => 'sometimes|string',
+            'evaluation' => 'sometimes|string',
+            'reinforcement' => 'sometimes|string',
+            'notes' => 'nullable|string',
+            'status' => 'sometimes|in:inprogress,done,cancel',
+        ]);
 
-        if (!$selfClass) {
-            return redirect()->route('selfClass.index')->with('error', 'Record not found');
+        $result = $this->service->update($id, $data);
+
+        if (!$result) {
+            return response()->json(['message' => 'Not found or update failed'], 404);
         }
 
-        return view('selfClass.edit', compact('selfClass'));
+        return response()->json(['message' => 'Updated successfully']);
+    }
+
+    public function destroy($id)
+    {
+        $result = $this->service->delete($id);
+
+        if (!$result) {
+            return response()->json(['message' => 'Delete failed or not found'], 404);
+        }
+
+        return response()->json(['message' => 'Deleted successfully']);
     }
 }

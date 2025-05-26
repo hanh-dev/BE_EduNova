@@ -15,22 +15,23 @@ class InClassService
     {
         return $this->inClassRepository->getAll();
     }
-    public function createGoal(array $data)
+    public function createInClass(array $data)
     {
         return $this->inClassRepository->create($data);
     }
-    public function updateInclass($id, array $data)
-    {
-        $inclass = $this->inClassRepository->find($id);
+public function updateInClass($id, array $data)
+{
+    $inclass = $this->inClassRepository->find($id);
 
-        if (!$inclass) {
-            return null;
-        }
-
-        $inclass->update($data);
-
-        return $inclass;
+    if (!$inclass) {
+        return null;
     }
+
+    $inclass->update($data);
+
+    return $inclass;
+}
+
 
     public function getInClasServiceById($id)
     {
@@ -43,5 +44,10 @@ class InClassService
     public function deleteInClass($id)
     {
         return $this->inClassRepository->deleteInClass($id);
+    }
+
+    public function createGoal($data)
+    {
+        return $this->inClassRepository->create($data);
     }
 }
