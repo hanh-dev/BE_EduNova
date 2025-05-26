@@ -19,6 +19,7 @@ class MessageController extends Controller
     // Gửi tin nhắn từ sinh viên
     public function sendMessage(Request $request)
     {
+        $user = auth('api')->user();
         $request->validate([
             'content' => 'required|string|max:1000',
         ]);
@@ -31,6 +32,7 @@ class MessageController extends Controller
         $messageData = [
             'sender' => 'student',
             'student_id' => $studentId,
+            'image' => $user->image, // Hình ảnh của sinh viên (người gửi)
             'content' => $request->content,
             'created_at' => now()->toDateTimeString(),
         ];
@@ -54,7 +56,8 @@ class MessageController extends Controller
             'content' => 'required|string|max:1000',
         ]);
 
-        $adminId = Auth::id(); // ID của admin (cần xác thực admin)
+        $adminId = Auth::id();
+        $admin = auth('api')->user();
         if (!$adminId) {
             return response()->json(['status' => false, 'message' => 'Unauthenticated'], 401);
         }
@@ -62,6 +65,7 @@ class MessageController extends Controller
         $messageData = [
             'sender' => 'admin',
             'student_id' => $request->student_id,
+            'image' => $admin->image,
             'content' => $request->content,
             'created_at' => now()->toDateTimeString(),
         ];

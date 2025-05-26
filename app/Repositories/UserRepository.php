@@ -60,4 +60,10 @@ class UserRepository
     {
         return User::where('id', $id)->update($data);
     }
+
+    public function getUserIdByEmail($email)
+    {
+        $user = user::where('email', $email)->first();
+        return $user?->id;
+    }
 }
