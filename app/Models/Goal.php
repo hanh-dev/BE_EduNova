@@ -22,6 +22,7 @@ class Goal extends Model
         'selfExpectations',
         'dueDate',
         'completeStatus', 
+         'semester_id',
     ];
 
     // Quan hệ với User
@@ -41,13 +42,12 @@ class Goal extends Model
         $this->attributes['dueDate'] = Carbon::parse($value)->toDateString();
     }
 
-    // Trạng thái hoàn thành: nếu trạng thái là 'done', trả về màu xanh, nếu 'doing', trả về màu vàng
     public function getCompleteStatusAttribute($value)
     {
-        return $value === 'done' ? 'done' : 'doing'; // Trả về trạng thái hoàn thành
+        return $value === 'done' ? 'done' : 'doing'; 
     }
 
-    // Cập nhật trạng thái hoàn thành
+    
     public function setCompleteStatusAttribute($value)
     {
         $this->attributes['completeStatus'] = $value === 'done' ? 'done' : 'doing'; // Đảm bảo trạng thái hợp lệ

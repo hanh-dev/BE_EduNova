@@ -18,6 +18,8 @@ use App\Http\Controllers\AcademyController;
 use App\Http\Controllers\MessageController;
 use App\Http\Controllers\TaskController;
 use App\Http\Controllers\WeekGoalController;
+use App\Http\Controllers\SemesterController;
+use App\Http\Controllers\WeekController;
 use App\Http\Controllers\TagTeacherController;
 
 Route::get('/user', function (Request $request) {
@@ -55,15 +57,18 @@ Route::put('/goal/{id}', [GoalController::class, 'update']);
 Route::delete('/goal/{id}', [GoalController::class, 'destroy']);
 Route::put('/goal/{id}/completeStatus', [GoalController::class, 'updateCompleteStatus']);
 
-
+// Inclass
 Route::get('/inclass',[InClassController::class,'index']);
 Route::put('/inclass/{id}',[InClassController::class,'update']);
 Route::get('/inclass/{id}',[InClassController::class,'show']);
+Route::delete('/inclass/{id}',[InClassController::class,'destroy']);
+Route::post('/inclass', [InClassController::class, 'store']);
 
 Route::get('/selfstudy',[SelfStudyController::class,'index']);
 Route::get('/selfstudy/{id}', [SelfStudyController::class, 'show']); 
 Route::put('/selfstudy/{id}', [SelfStudyController::class, 'update']); 
 Route::post('/selfstudy', [SelfStudyController::class, 'store']);
+Route::delete('/selfstudy/{id}', [SelfStudyController::class, 'destroy']);
 
 // 
 Route::get('/task', [TaskController::class, 'index']);
@@ -86,5 +91,14 @@ Route::patch('/v1/student/{id}', [UserController::class, 'updateStudent']);
 Route::post('/v1/messages/send', [MessageController::class, 'sendMessage']);
 Route::post('/v1/messages/reply', [MessageController::class, 'replyToStudent']);
 
+//Semester
+Route::get('/semester', [SemesterController::class, 'index']);
+Route::get('/semester/{id}', [SemesterController::class, 'show']);
+Route::post('/semester', [SemesterController::class, 'store']);
+Route::put('/semester/{id}', [SemesterController::class, 'update']);
+
+// Week
+Route::get('/week', [WeekController::class, 'getAllWeeks']);   // Lấy danh sách tuần
+Route::post('/week', [WeekController::class, 'createWeek']);  // Tạo tuần mới qua service
 //Tag Teacher
 Route::post('/tag-teacher', [TagTeacherController::class, 'sendTagTeacher']);

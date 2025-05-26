@@ -13,6 +13,7 @@ class InClass extends Model
     protected $fillable = [
         'user_id',
         'goal_id',
+        'week_id',
         'date',
         'skill_module',
         'lesson_summary',
@@ -25,6 +26,4 @@ class InClass extends Model
     {
         return $this->belongsTo(User::class);
     }
-
-    
 }

@@ -91,5 +91,9 @@ class GoalRepository
 
     return response()->json($goal, 200); // Trả lại goal đã được cập nhật
 }
+ public function getGoalsByUserId($userId)
+    {
+        return Goal::where('user_id', $userId)->get();
+    }
 
 }
