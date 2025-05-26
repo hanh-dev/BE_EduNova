@@ -36,7 +36,8 @@ class ClassRepository
     public function create(array $data)
     {
         if (empty($data['image'])) {
-            $data['image'] = 'ItEnglish.png';
+            $defaultImages = ['ItEnglish.png', 'toeic.png', 'communicate.png'];
+            $data['image'] = $defaultImages[array_rand($defaultImages)];
         }
         return ClassModel::create($data);
     }

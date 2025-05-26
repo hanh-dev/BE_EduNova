@@ -50,4 +50,9 @@ class UserService
     {
         return $this->repository->update($id, $data);
     }
+
+    public function getUserIdByEmail($email)
+    {
+        return $this->repository->getUserIdByEmail($email);
+    }
 }

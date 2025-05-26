@@ -13,12 +13,20 @@ class ClassUserRepository
         $this->model = $classUserModel;
     }
 
-    public function create($stuentId, $classId)
+    public function create($stuent_id, $class_id)
     {
         DB::table('class_user')->insert([
-            'class_id' => $classId,
-            'student_id' => $stuentId,
+            'class_id' => $class_id,
+            'student_id' => $stuent_id,
             'joined_at' => now()
         ]);
+    }
+
+    public function checkStudentExistInClass($student_id, $class_id)
+    {
+        return DB::table('class_user')
+            ->where('student_id', $student_id)
+            ->where('class_id', $class_id)
+            ->exists();
     }
 }
