@@ -70,8 +70,9 @@ Route::put('/selfstudy/{id}', [SelfStudyController::class, 'update']);
 Route::post('/selfstudy', [SelfStudyController::class, 'store']);
 Route::delete('/selfstudy/{id}', [SelfStudyController::class, 'destroy']);
 
-// 
+// Task
 Route::get('/task', [TaskController::class, 'index']);
+Route::put('/tasks/{id}', [TaskController::class, 'update']);
 
 //Week's Goal
 Route::get('/week-goals', [WeekGoalController::class, 'getAllWeekGoals']);

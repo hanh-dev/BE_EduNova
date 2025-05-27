@@ -1,11 +1,13 @@
 <?php
 
 namespace App\Services;
+
 use App\Repositories\TaskRepository;
 
 class TaskService
 {
     protected $taskRepository;
+
     public function __construct(TaskRepository $taskRepository)
     {
         $this->taskRepository = $taskRepository;
@@ -28,5 +30,10 @@ class TaskService
             'message' => 'Tasks retrieved successfully.',
             'data' => $tasks,
         ];
+    }
+
+    public function updateTask($id, $data)
+    {
+        return $this->taskRepository->updateTask($id, $data);
     }
 }

@@ -23,4 +23,15 @@ class TaskRepository
             }])
             ->get();
     }
+
+    public function updateTask($id, $data)
+{
+    $task = $this->model->find($id);
+    if ($task) {
+        $task->update($data);
+        return $task;
+    }
+    return null;
+}
+
 }
