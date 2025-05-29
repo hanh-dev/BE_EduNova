@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Services\GoalService;
 use Illuminate\Http\Request;
+use App\Models\Goal;
 
 class GoalController extends Controller
 {
@@ -16,19 +17,14 @@ class GoalController extends Controller
 
 public function index(Request $request)
 {
-    $userId = $request->query('user_id');
+    $query = Goal::with('semester'); // load luôn dữ liệu semester
 
-    // Nếu có user_id thì lọc theo user
-    if ($userId) {
-        $goals = $this->goalService->getGoalsByUserId($userId);
-    } else {
-        // Nếu không có user_id thì trả về tất cả goals
-        $goals = $this->goalService->getAllGoals();
+    if ($request->has('semester_id')) {
+        $query->where('semester_id', $request->semester_id);
     }
 
-    return response()->json($goals, 200);
+    return response()->json($query->get());
 }
-
     public function show($id)
     {
         $goal = $this->goalService->getGoalById($id);

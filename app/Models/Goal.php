@@ -61,4 +61,9 @@ class Goal extends Model
     return response()->json($data, 200);
 }
 
+    public function semester()
+{
+    return $this->belongsTo(Semester::class);
+}
+
 }
