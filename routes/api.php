@@ -20,6 +20,7 @@ use App\Http\Controllers\TaskController;
 use App\Http\Controllers\WeekGoalController;
 use App\Http\Controllers\SemesterController;
 use App\Http\Controllers\WeekController;
+use App\Http\Controllers\TagTeacherController;
 
 use App\Http\Controllers\ListGoalController;
 use App\Http\Controllers\NotificationController;
@@ -97,8 +98,8 @@ Route::post('/v1/messages/reply', [MessageController::class, 'replyToStudent']);
 
 //Notification teacher
 
-Route::get('/notifications', [NotificationController::class, 'index']);
-Route::post('/notifications/{id}/read', [NotificationController::class, 'markRead']);
+// Route::get('/notifications', [NotificationController::class, 'index']);
+// Route::post('/notifications/{id}/read', [NotificationController::class, 'markRead']);
 
 //Semester
 Route::get('/semester', [SemesterController::class, 'index']);
@@ -109,3 +110,11 @@ Route::put('/semester/{id}', [SemesterController::class, 'update']);
 // Week
 Route::get('/week', [WeekController::class, 'getAllWeeks']);   // Lấy danh sách tuần
 Route::post('/week', [WeekController::class, 'createWeek']);  // Tạo tuần mới qua service
+
+//Tag Teacher
+// Route::post('/tag-teacher', [TagTeacherController::class, 'sendTagTeacher']);
+// Route::get('/tag-teacher', [TagTeacherController::class, 'getTagTeacher']);
+Route::post('/tag-teacher', [TagTeacherController::class, 'sendTagTeacher']);
+Route::get('/tag-teacher', [TagTeacherController::class, 'getTagTeacher']);
+Route::get('/tag-teacher/goal/{goalId}', [TagTeacherController::class, 'getTagTeacherByGoal']);
+Route::post('/tag-teacher/response', [TagTeacherController::class, 'sendTeacherResponse']);

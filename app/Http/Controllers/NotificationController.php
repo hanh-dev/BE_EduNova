@@ -18,13 +18,6 @@ class NotificationController extends Controller
     public function index(Request $request)
     {
         $user = auth()->user();
-    
-        // Kiểm tra user hiện tại là ai
-        // logger('Auth user', ['id' => $user->id, 'type' => get_class($user)]);
-    
-        // Kiểm tra có bao nhiêu thông báo
-        // logger('Notifications count', ['count' => $user->notifications->count()]);
-    
         $userId = $request->user()->id;
         return response()->json($this->service->getUserNotifications($userId));
     }
