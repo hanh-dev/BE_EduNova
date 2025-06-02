@@ -21,13 +21,15 @@ class ClassRepository
             ->select(
                 'classes.id',
                 'classes.name',
+                'classes.status',
+                'classes.teacher_id',
                 'classes.description',
                 'classes.image',
                 'teachers.name as teacher_name',
                 'teachers.image as teacher_image',
                 DB::raw('COUNT(class_user.student_id) as total_students')
             )
-            ->groupBy('classes.id', 'classes.name', 'classes.description', 'classes.image', 'teachers.name', 'teachers.image')
+            ->groupBy('classes.id', 'classes.name', 'classes.description', 'classes.image', 'teachers.name', 'teachers.image', 'classes.status', 'classes.teacher_id')
             ->get();
 
         return $classes;
@@ -60,4 +62,16 @@ class ClassRepository
         return $class;
     }
 
+    public function getClassStats()
+    {
+        $total = ClassModel::count();
+        $active = ClassModel::where('status', 'active')->count();
+        $emptyClasses = ClassModel::doesntHave('students')->get();
+        return [$total, $active, $emptyClasses];
+    }
+
+    public function getClassIdByClassName($className)
+    {
+        return ClassModel::where('name', $className)->value('id');
+    }
 }

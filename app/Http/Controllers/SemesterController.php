@@ -24,13 +24,12 @@ class SemesterController extends Controller
         return response()->json($this->semesterService->getSemesterById($id));
     }
 
-public function store(Request $request)
-{
-    $data = $request->only(['name', 'start_date', 'end_date']);
+    public function store(Request $request)
+    {
+        $data = $request->only(['name', 'start_date', 'end_date']);
 
-    $newSemester = $this->semesterService->createSemester($data);
+        $newSemester = $this->semesterService->createSemester($data);
 
-    return response()->json($newSemester, 201);
-}
-
+        return response()->json($newSemester, 201);
+    }
 }

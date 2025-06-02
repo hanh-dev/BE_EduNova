@@ -40,4 +40,14 @@ class ClassService
         $response = $this->repository->updateClass($id, $data);
         return $response;
     }
+
+    public function getClassStats()
+    {
+        return $this->repository->getClassStats();
+    }
+
+    public function getClassIdByClassName($className)
+    {
+        return $this->repository->getClassIdByClassName($className);
+    }
 }
