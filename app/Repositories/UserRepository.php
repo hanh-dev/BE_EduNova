@@ -66,4 +66,10 @@ class UserRepository
         $user = user::where('email', $email)->first();
         return $user?->id;
     }
+
+    public function getUserNameById($userId)
+    {
+        $user = User::where('id', $userId)->first();
+        return $user?->id;
+    }
 }

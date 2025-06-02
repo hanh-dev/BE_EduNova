@@ -22,7 +22,8 @@ class User extends Authenticatable implements JWTSubject
         'email',
         'password',
         'image',
-        'role'
+        'role',
+        'status'
     ];
 
     /**
@@ -87,4 +88,10 @@ class User extends Authenticatable implements JWTSubject
         return $this->hasMany(ClassUser::class, 'student_id');
     }
 
+    public function announcements()
+    {
+        return $this->belongsToMany(Announcement::class, 'announcement_user')
+                    ->withPivot('is_read')
+                    ->withTimestamps();
+    }
 }

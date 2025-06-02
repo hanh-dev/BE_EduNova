@@ -185,4 +185,14 @@ class ClassController extends Controller
         }
     }
 
+    public function getClassStats()
+    {
+        $result = $this->service->getClassStats();
+        return response()->json([
+            'status' => true,
+            'total' => $result[0],
+            'active' => $result[1],
+            'empty' => $result[2]
+        ]);
+    }
 }

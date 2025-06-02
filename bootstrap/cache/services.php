@@ -35,7 +35,8 @@
     31 => 'Pest\\Laravel\\PestServiceProvider',
     32 => 'Tymon\\JWTAuth\\Providers\\LaravelServiceProvider',
     33 => 'App\\Providers\\AppServiceProvider',
-    34 => 'App\\Providers\\RouteServiceProvider',
+    34 => 'App\\Providers\\BroadcastServiceProvider',
+    35 => 'App\\Providers\\RouteServiceProvider',
   ),
   'eager' => 
   array (
@@ -58,7 +59,8 @@
     16 => 'Pest\\Laravel\\PestServiceProvider',
     17 => 'Tymon\\JWTAuth\\Providers\\LaravelServiceProvider',
     18 => 'App\\Providers\\AppServiceProvider',
-    19 => 'App\\Providers\\RouteServiceProvider',
+    19 => 'App\\Providers\\BroadcastServiceProvider',
+    20 => 'App\\Providers\\RouteServiceProvider',
   ),
   'deferred' => 
   array (
