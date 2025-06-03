@@ -31,7 +31,7 @@ Route::get('/user', function (Request $request) {
 Route::post('/v1/login', [AuthController::class, 'login']);
 Route::post('/v1/logout', [AuthController::class, 'logout']);
 
-Route::get('/v1/teachers', [TeacherController::class, 'index']);
+// Route::get('/v1/teachers', [TeacherController::class, 'index']);
 
 Route::middleware('auth.jwt')->get('/profile', [ProductController::class, 'get']);
 // Class management
@@ -113,6 +113,7 @@ Route::get('/v1/announcement/user/{userId}', [AnnouncementController::class, 'ge
 Route::delete('/v1/announcement/{id}', [AnnouncementController::class, 'deleteAnnouncement']);
 Route::post('/v1/announcement', [AnnouncementController::class, 'store']);
 use App\Events\AnnouncementCreated;
+use App\Http\Controllers\TagTeacherController;
 use Illuminate\Support\Facades\Broadcast;
 use Illuminate\Support\Facades\Log;
 
@@ -218,3 +219,18 @@ Route::get('/test-broadcast-user-63', function () {
     ]);
 });
 
+Route::get('/week-goals', [WeekGoalController::class, 'getAllWeekGoals']);
+Route::get('/week-goals/{id}', [WeekGoalController::class, 'getWeekGoal']);
+Route::post('/week-goals', [WeekGoalController::class, 'storeWeekGoal']);
+Route::put('/week-goals/{id}', [WeekGoalController::class, 'updateWeekGoal']);
+Route::put('/week-goals/{id}/status', [WeekGoalController::class, 'updateWeekGoalStatus']);
+Route::delete('/week-goals/{id}', [WeekGoalController::class, 'deleteWeekGoal']);
+Route::get('/week-goals/status/{status}', [WeekGoalController::class, 'getWeekGoalsByStatus']);
+Route::get('/goal/status/{status}', [GoalController::class, 'getGoalsByStatus']);
+
+Route::post('/tag-teacher', [TagTeacherController::class, 'sendTagTeacher']);
+Route::get('/tag-teacher', [TagTeacherController::class, 'getTagTeacher']);
+Route::get('/tag-teacher/goal/{goalId}', [TagTeacherController::class, 'getTagTeacherByGoal']);
+Route::post('/tag-teacher/response', [TagTeacherController::class, 'sendTeacherResponse']);
+Route::get('/tag-teacher/student', [TagTeacherController::class, 'getStudentResponses']);
+Route::post('/tag-teacher/mark-read', [TagTeacherController::class, 'markResponseAsRead']);

@@ -18,5 +18,4 @@ class TeacherController extends Controller
         $teachers = $this->service->getAll();
         return response()->json($teachers);
     }
-
 }
